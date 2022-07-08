@@ -1,0 +1,57 @@
+from db.models.metric import Metric
+from db.datebase import SessionLocal
+
+
+db = SessionLocal()
+
+
+def get_all():
+    return db.query(Metric).all()
+
+
+def get_a_metric(id_metric):
+    response = db.query(Metric).filter(Metric.id == id_metric).first()
+
+    if not response:
+        return {'msg': 'Dont exist the id in DB'}
+    else:
+        return response
+
+
+def create_metric(metric):
+    m = Metric(device=metric.device, consumo=metric.consumo, date=metric.date)
+    db.add(m)
+    db.commit()
+    return m
+
+
+def update_metric(id_metric, parameters):
+    response = db.query(Metric).filter(Metric.id == id_metric).first()
+    if not response:
+        return {'msg': 'Dont exist the id in DB'}
+    else:
+        if len(parameters.consumo) and parameters.date > 0:
+            response.consumo = parameters.consumo
+            response.date = parameters.date
+            db.commit()
+            info = db.query(Metric).filter(Metric.id == id_metric).first()
+            return info
+        elif len(parameters.consumo):
+            response.consumo = parameters.consumo
+            db.commit()
+            info = db.query(Metric).filter(Metric.id == id_metric).first()
+            return info
+        else:
+            response.date = parameters.date
+            db.commit()
+            return response
+
+
+def delete_metric(id_metric):
+    response = db.query(Metric).filter(Metric.id == id_metric).first()
+    if not response:
+        return {'msg': 'Dont exist the id in DB'}
+    else:
+        db.delete(response)
+        db.commit()
+        return {'msg': 'Removed metric'}
