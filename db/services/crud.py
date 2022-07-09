@@ -30,21 +30,31 @@ def update_metric(id_metric, parameters):
     if not response:
         return {'msg': 'Dont exist the id in DB'}
     else:
-        if len(parameters.consumo) and parameters.date > 0:
+        if len(parameters.consumo) and len(parameters.date) and len(parameters.device):
             response.consumo = parameters.consumo
+            response.device = parameters.device
             response.date = parameters.date
             db.commit()
             info = db.query(Metric).filter(Metric.id == id_metric).first()
             return info
-        elif len(parameters.consumo):
+
+        elif len(parameters.consumo) and len(parameters.date) == 0 and len(parameters.device) == 0  :
             response.consumo = parameters.consumo
             db.commit()
             info = db.query(Metric).filter(Metric.id == id_metric).first()
             return info
+
+        elif len(parameters.device) and len(parameters.date) == 0 and len(parameters.consumo) == 0:
+            response.device = parameters.device
+            db.commit()
+            info = db.query(Metric).filter(Metric.id == id_metric).first()
+            return info
+
         else:
             response.date = parameters.date
             db.commit()
-            return response
+            info = db.query(Metric).filter(Metric.id == id_metric).first()
+            return info
 
 
 def delete_metric(id_metric):
@@ -54,4 +64,4 @@ def delete_metric(id_metric):
     else:
         db.delete(response)
         db.commit()
-        return {'msg': 'Removed metric'}
+        return {'msg':'deleted!'}
