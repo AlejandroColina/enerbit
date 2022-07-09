@@ -57,10 +57,11 @@ Para ejecutar el contenido del repositorio deberá contar con conocimientos bás
 
 <p>Teniendo en cuenta lo anterior se deberán llevar a cabo los siguientes pasos:</p><br>
 <ul>
-    <li>Clonar el repositorio. <a href='http://www.google.com.co'>GOOGLE</a></li>
+    <li>Clonar el repositorio. <a href='https://github.com/AlejandroColina/test'>REPOSITORIO EN GIT</a></li>
     <li>Abrir la terminal y acceder a la carpeta donde esta el repositorio clonado.</li>
     <li>Ejecutar el comando <b>py install -r requirements.txt</b></li>
     <li>Crear una base de datos SQL localmente con el nombre: medidas.</li>
+    <li>Iniciar servidor redis</li>
     <li>Abrir la terminal y acceder a la carpeta donde esta el repositorio clonado.</li>
     <li>Navegador de internet</li>
 </ul>
