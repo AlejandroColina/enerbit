@@ -1,9 +1,10 @@
 from pydantic import BaseModel
 
 class Metric(BaseModel):
-    device: int
+    id:int
+    device: str
     consumo: str
-    date: float
+    date: str
 
     class Config:
         orm_mode = True
