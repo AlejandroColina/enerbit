@@ -1,15 +1,10 @@
-# from redis import Redis
-# from redis.exceptions import ConnectionError
-# from os import getenv
+from redis import Redis
+from redis.exceptions import ConnectionError
+from os import getenv
 
 
-
-# def connect_to_redis():
-#     hostname = 'localhost'
-#     port = '49154'
-#     password = 'redispw'
-
-#     r = Redis(hostname, port, password, retry_on_timeout=True)
-#     return r
-
-# connection = connect_to_redis()
+try:
+    r = Redis(host='localhost', port=3001, charset="utf-8", decode_responses=True )
+    print('Connected to redis.')    
+except ConnectionError as e:
+    print(e)
